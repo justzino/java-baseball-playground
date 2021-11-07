@@ -35,29 +35,23 @@ public class StringCalculator {
         }
     }
 
-    public void calculateAll() {
+    public void calculate() {
         result = operands.pop();
         while (!operands.isEmpty()) {
-            calculate(result, operands.pop(), operators.pop());
+            double operand2 = operands.pop();
+            calculateEach(result, operand2, operators.pop());
         }
     }
 
-    public void calculate(double x, double y, String operator) {
-        if ("+".equals(operator)) {
-            result = x + y;
-        } else if ("-".equals(operator)) {
-            result = x - y;
-        } else if ("*".equals(operator)) {
-            result = x * y;
-        } else if ("/".equals(operator)) {
-            if (y == 0) {
-                throw new IllegalArgumentException("0으로 나눌수 없습니다");
+    private void calculateEach(double operand1, double operand2, String operator) {
+        for (Operator op: Operator.values()) {
+            if (operator.equals(op.getOperator())) {
+                result = op.operate(operand1, operand2);
             }
-            result = x / y;
         }
     }
 
-    public void validate(int idx, String value) {
+    private void validate(int idx, String value) {
         if (idx % 2 == 0 && !isDigit(value)) {  // 짝수번째: 숫자가 와야함
             throw new IllegalArgumentException("잘못된 입력입니다.");
         }
@@ -66,11 +60,11 @@ public class StringCalculator {
         }
     }
 
-    public boolean isDigit(String value) {
+    private boolean isDigit(String value) {
         return value.matches("^0|[1-9]+[0-9]*");
     }
 
-    public boolean isOperator(String value) {
+    private boolean isOperator(String value) {
         return value.matches("[+\\-*/]");
     }
 }
