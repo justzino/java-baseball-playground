@@ -44,7 +44,7 @@ public class StringCalculator {
     }
 
     private void calculateEach(double operand1, double operand2, String operator) {
-        for (Operator op: Operator.values()) {
+        for (Operator op : Operator.values()) {
             if (operator.equals(op.getOperator())) {
                 result = op.operate(operand1, operand2);
             }
