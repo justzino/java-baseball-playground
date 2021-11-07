@@ -4,11 +4,11 @@ import java.util.LinkedList;
 
 public class StringCalculator {
 
-    private String[] values;
+    private String[] formula;
     private LinkedList<Double> operands;
     private LinkedList<String> operators;
 
-    private Double result;
+    private double result;
 
     public StringCalculator() {
         this.operands = new LinkedList<>();
@@ -19,18 +19,18 @@ public class StringCalculator {
         return result;
     }
 
-    public void enter(String s) {
-        values = s.split(" ");      // values 초기화
-        if (values.length < 3) {
+    public void setFormula(String s) {
+        formula = s.split(" ");      // values 초기화
+        if (formula.length < 3) {
             throw new IllegalArgumentException("3글자 이상 입력해 주세요.");
         }
-        for (int i = 0; i < values.length; i++) {
-            validate(i, values[i]);
-            if (isDigit(values[i])) {
-                operands.add(Double.valueOf(values[i]));
+        for (int i = 0; i < formula.length; i++) {
+            validate(i, formula[i]);
+            if (isDigit(formula[i])) {
+                operands.add(Double.valueOf(formula[i]));
             }
-            if (isOperator(values[i])) {
-                operators.add(values[i]);
+            if (isOperator(formula[i])) {
+                operators.add(formula[i]);
             }
         }
     }
