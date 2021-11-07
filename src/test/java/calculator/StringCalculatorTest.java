@@ -1,6 +1,5 @@
 package calculator;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,10 +19,11 @@ public class StringCalculatorTest {
 
     @BeforeEach
     void setUp() {
+        // given
         sc = new StringCalculator();
     }
 
-    private static Stream<Arguments> prvideStringToCalculate() {
+    private static Stream<Arguments> provideSuccessStringToCalculate() {
         return Stream.of(
                 Arguments.of("1 + 2", 3),
                 Arguments.of("2 + 3", 5),
@@ -36,21 +36,51 @@ public class StringCalculatorTest {
     }
 
     @ParameterizedTest
-    @MethodSource("prvideStringToCalculate")
-    @DisplayName("복잡한 연산 테스트")
+    @MethodSource("provideSuccessStringToCalculate")
+    @DisplayName("복잡한 성공 케이스 연산 테스트")
     void complexCalculation(String str, double expected) {
-        sc.enter(str);
-        sc.calculateAll();
+        sc.setFormula(str);
+        sc.calculate();
         assertThat(sc.getResult()).isEqualTo(expected);
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"3 / 0"})
-    @DisplayName("0으로 나누기")
-    void divideByZero(String str) {
-        sc.enter(str);
+    @ValueSource(strings = {"2 + + 2 - ", "+ 2 + 1"})
+    @DisplayName("이상한 문자열이 들어오는 경우")
+    void failStringException(String str) {
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(
-                () -> sc.calculateAll()
-        ).withMessageContaining("0으로 나눌수 없습니다");
+                () -> {
+                    sc.setFormula(str);
+                    sc.calculate();
+                    double result = sc.getResult();
+                });
+    }
+
+    @Test
+    @DisplayName("예외 처리: int 0 으로 나누기")
+    void divideByIntZeroException() {
+        // when
+        String formula = "5 / 0";
+        //then
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(
+                () -> {
+                    sc.setFormula(formula);
+                    sc.calculate();
+                    double result = sc.getResult();
+                });
+    }
+
+    @Test
+    @DisplayName("예외 처리: double 0 으로 나누기")
+    void divideByDoubleZeroException() {
+        // given
+        String formula = " 5.6 / 0";
+
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(
+                () -> {
+                    sc.setFormula(formula);
+                    sc.calculate();
+                    double result = sc.getResult();
+                });
     }
 }
