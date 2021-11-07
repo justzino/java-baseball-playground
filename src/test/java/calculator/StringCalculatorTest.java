@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class StringCalculatorTest {
 
@@ -39,9 +40,7 @@ public class StringCalculatorTest {
     @MethodSource("provideSuccessStringToCalculate")
     @DisplayName("복잡한 성공 케이스 연산 테스트")
     void complexCalculation(String str, double expected) {
-        sc.setFormula(str);
-        sc.calculate();
-        assertThat(sc.getResult()).isEqualTo(expected);
+        assertThat(sc.calculate(str)).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -49,11 +48,7 @@ public class StringCalculatorTest {
     @DisplayName("이상한 문자열이 들어오는 경우")
     void failStringException(String str) {
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(
-                () -> {
-                    sc.setFormula(str);
-                    sc.calculate();
-                    double result = sc.getResult();
-                });
+                () -> sc.calculate(str));
     }
 
     @Test
@@ -62,12 +57,7 @@ public class StringCalculatorTest {
         // when
         String formula = "5 / 0";
         //then
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(
-                () -> {
-                    sc.setFormula(formula);
-                    sc.calculate();
-                    double result = sc.getResult();
-                });
+        assertDoesNotThrow(() -> sc.calculate(formula));
     }
 
     @Test
@@ -77,10 +67,6 @@ public class StringCalculatorTest {
         String formula = " 5.6 / 0";
 
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(
-                () -> {
-                    sc.setFormula(formula);
-                    sc.calculate();
-                    double result = sc.getResult();
-                });
+                () -> sc.calculate(formula));
     }
 }
