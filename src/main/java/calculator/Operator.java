@@ -36,8 +36,9 @@ public enum Operator {
 
         Operator operator = OPERATOR_MAP.get(str);
 
-        if (operator == null) throw new IllegalArgumentException();
+        if (operator == null) {
+            throw new IllegalArgumentException();
+        }
         return operator;
     }
 }
-
