@@ -28,7 +28,7 @@ public class Formula {
 
     public void set(String s) {
         String[] formula;
-        formula = s.split(" ");      // values 초기화
+        formula = s.split(Constants.SPACE);      // values 초기화
         if (formula.length < 3) {
             throw new IllegalArgumentException("3글자 이상 입력해 주세요.");
         }
