@@ -26,13 +26,9 @@ public class StringCalculator {
     private void calculateEach(Formula formula) {
         double operand1 = formula.popOperand();
         double operand2 = formula.popOperand();
-        String operator = formula.popOperator();
+        String operatorStr = formula.popOperator();
+        Operator operator = Operator.findOperator(operatorStr);
 
-        for (Operator op : Operator.values()) {
-            if (!operator.equals(op.getOperator())) {
-                continue;
-            }
-            formula.addOperandFirst(op.operate(operand1, operand2));    // 결과값을 다음 operand 로 쓰기 위해 다시 넣기.
-        }
+        formula.addOperandFirst(operator.operate(operand1, operand2));    // 결과값을 다음 operand 로 쓰기 위해 다시 넣기.
     }
 }
