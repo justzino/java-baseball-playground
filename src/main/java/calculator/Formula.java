@@ -11,15 +11,19 @@ public class Formula {
         this.operators = new LinkedList<>();
     }
 
-    public double getOperand() {
+    public double popOperand() {
         return operands.pop();
     }
 
-    public String getOperator() {
+    public String popOperator() {
         return operators.pop();
     }
 
-    public void setFormula(String s) {
+    public void addOperandFirst(double operand) {
+        operands.addFirst(operand);
+    }
+
+    public void set(String s) {
         String[] formula;
         formula = s.split(" ");      // values 초기화
         if (formula.length < 3) {
@@ -37,7 +41,7 @@ public class Formula {
     }
 
     public boolean isEmpty() {
-        return operands.isEmpty();
+        return operators.isEmpty();
     }
 
     private void validate(int idx, String value) {

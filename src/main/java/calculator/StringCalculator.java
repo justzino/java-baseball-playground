@@ -4,30 +4,35 @@ public class StringCalculator {
 
     private Formula formula;
 
-
     public StringCalculator() {
         this.formula = new Formula();
     }
 
     private void setFormula(String str) {
-        formula.setFormula(str);
+        formula.set(str);
     }
 
     public double calculate(String str) {
         double result;
         setFormula(str);
 
-        double operand1 = formula.getOperand();
         while (!formula.isEmpty()) {
-            double operand2 = formula.getOperand();
-            String nowOperator = formula.getOperator();
-            for (Operator op : Operator.values()) {
-                if (nowOperator.equals(op.getOperator())) {
-                    operand1 = op.operate(operand1, operand2);
-                }
-            }
+            calculateEach(formula);
         }
-        result = operand1;
+        result = formula.popOperand();
         return result;
+    }
+
+    private void calculateEach(Formula formula) {
+        double operand1 = formula.popOperand();
+        double operand2 = formula.popOperand();
+        String operator = formula.popOperator();
+
+        for (Operator op : Operator.values()) {
+            if (!operator.equals(op.getOperator())) {
+                continue;
+            }
+            formula.addOperandFirst(op.operate(operand1, operand2));    // 결과값을 다음 operand 로 쓰기 위해 다시 넣기.
+        }
     }
 }
