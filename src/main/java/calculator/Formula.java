@@ -1,10 +1,13 @@
 package calculator;
 
 import java.util.LinkedList;
+import java.util.regex.Pattern;
 
 public class Formula {
-    public LinkedList<Double> operands;
-    public LinkedList<String> operators;
+    private static final Pattern regexDigit = Pattern.compile("^0|[1-9]+[0-9]*");
+    private static final Pattern regexOperator = Pattern.compile("[+\\-*/]");
+    private LinkedList<Double> operands;
+    private LinkedList<String> operators;
 
     public Formula() {
         this.operands = new LinkedList<>();
@@ -54,10 +57,10 @@ public class Formula {
     }
 
     private boolean isDigit(String value) {
-        return value.matches("^0|[1-9]+[0-9]*");
+        return regexDigit.matcher(value).find();
     }
 
     private boolean isOperator(String value) {
-        return value.matches("[+\\-*/]");
+        return regexOperator.matcher(value).find();
     }
 }
