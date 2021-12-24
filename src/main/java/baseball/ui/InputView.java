@@ -18,9 +18,20 @@ public class InputView {
 
     private static ArrayList<Integer> convertStringListToIntList(ArrayList<String> strList) {
         ArrayList<Integer> integerList = new ArrayList<>();
-        for (String s : strList) integerList.add(Integer.valueOf(s));
-
+        for (String s : strList) {
+            addNumber(integerList, Integer.parseInt(s));
+        }
         return integerList;
+    }
+
+    private static void addNumber(ArrayList<Integer> integerList, int number) {
+        if (!isDuplicated(integerList, number)) {    // 이미 있는 값이면 다시 구하기
+            integerList.add(number);
+        }
+    }
+
+    private static boolean isDuplicated(ArrayList<Integer> randomNumber, int number) {
+        return randomNumber.contains(number);
     }
 
 }

@@ -10,10 +10,11 @@ public class Ball {
 
     private final List<Integer> ballNumber;
 
+    // 중복 검사된 숫
     public Ball(ArrayList<Integer> chanceNumber) {
         validateSize(chanceNumber);
         validateNumber(chanceNumber);
-        validateDuplicate(chanceNumber);
+//        validateDuplicate(chanceNumber);
         this.ballNumber = chanceNumber;
     }
 
