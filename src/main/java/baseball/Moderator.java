@@ -7,23 +7,24 @@ import baseball.ui.ResultView;
 import java.util.ArrayList;
 
 import static baseball.Constants.BALL_SIZE;
-import static baseball.Constants.GAME_CHANCE;
 import static baseball.ui.EndView.getUserIntentionForRestart;
 
 public class Moderator {
 
     public void startBaseball() {
-        for (int i = 0; i < GAME_CHANCE; i++) {
-            final Ball randomBall = generateRandomBall();
-            Judge judge = new Judge(randomBall);
+        final Ball randomBall = generateRandomBall();
+        Judge judge = new Judge(randomBall);
+        int strikeCount = 0;
+        int ballCount;
 
+        while (strikeCount < 3) {
             // 사용자한테 볼 넘버 받기
             ArrayList<Integer> inputNumber = getUserInputNumber();
             Ball inputBall = new Ball(inputNumber);
 
             // 결과 구하기
-            int strikeCount = judge.getStrikeCount(inputBall);
-            int ballCount = judge.getBallCount(inputBall);
+            strikeCount = judge.getStrikeCount(inputBall);
+            ballCount = judge.getBallCount(inputBall);
 
             // 출력하기
             ResultView.showResult(ballCount, strikeCount);
