@@ -26,5 +26,5 @@ public class Constants {
             String.format("숫자는 %d자리만 가능합니다.", BALL_SIZE);
     public static final String BALL_NUMBER_EXCEPTION_MESSAGE =
             String.format("숫자는 %d부터 %d까지만 가능합니다.", MIN_BALL_NUMBER, MAX_BALL_NUMBER);
-    public static final String BALL_DUPLICATE_EXCEPTION_MESSAGE = "서로 다른 숫자만 가능합니다.";
+    public static final String BALL_DUPLICATE_EXCEPTION_MESSAGE = "서로 다른 숫자를 입력해주세요.";
 }
