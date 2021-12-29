@@ -15,19 +15,19 @@ public class BallTest {
 
     @Test
     void Ball() {
-        BallStatus ballStatus = computerBall.play(new Ball(2, 4));
+        BallStatus ballStatus = computerBall.compare(new Ball(2, 4));
         assertThat(ballStatus).isEqualTo(BallStatus.BALL);
     }
 
     @Test
     void Strike() {
-        BallStatus ballStatus = computerBall.play(new Ball(1, 4));
+        BallStatus ballStatus = computerBall.compare(new Ball(1, 4));
         assertThat(ballStatus).isEqualTo(BallStatus.STRIKE);
     }
 
     @Test
     void Nothing() {
-        BallStatus ballStatus = computerBall.play(new Ball(2, 5));
+        BallStatus ballStatus = computerBall.compare(new Ball(2, 5));
         assertThat(ballStatus).isEqualTo(BallStatus.NOTHING);
     }
 }

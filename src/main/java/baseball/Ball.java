@@ -11,7 +11,7 @@ public class Ball {
         this.ballNumber = ballNumber;
     }
 
-    public BallStatus play(Ball ball) {
+    public BallStatus compare(Ball ball) {
         if (this.equals(ball)) return BallStatus.STRIKE;
         if (matchBallNumber(ball.ballNumber)) return BallStatus.BALL;
         return BallStatus.NOTHING;
