@@ -12,19 +12,19 @@ import static baseball.ui.EndView.getUserIntentionForRestart;
 public class Moderator {
 
     public void startBaseball() {
-        final Ball randomBall = generateRandomBall();
-        Judge judge = new Judge(randomBall);
+        final Balls randomBalls = generateRandomBall();
+        Judge judge = new Judge(randomBalls);
         int strikeCount = 0;
         int ballCount;
 
         while (strikeCount < 3) {
             // 사용자한테 볼 넘버 받기
             ArrayList<Integer> inputNumber = getUserInputNumber();
-            Ball inputBall = new Ball(inputNumber);
+            Balls inputBalls = new Balls(inputNumber);
 
             // 결과 구하기
-            strikeCount = judge.getStrikeCount(inputBall);
-            ballCount = judge.getBallCount(inputBall);
+            strikeCount = judge.getStrikeCount(inputBalls);
+            ballCount = judge.getBallCount(inputBalls);
 
             // 출력하기
             ResultView.showResult(ballCount, strikeCount);
@@ -39,8 +39,8 @@ public class Moderator {
         return getUserIntentionForRestart();
     }
 
-    private Ball generateRandomBall() {
-        return new Ball(RandomNumberGenerator.generate(BALL_SIZE));
+    private Balls generateRandomBall() {
+        return new Balls(RandomNumberGenerator.generate(BALL_SIZE));
     }
 
     private ArrayList<Integer> getUserInputNumber() {

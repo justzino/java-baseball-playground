@@ -1,47 +1,47 @@
 package baseball;
 
 public class Judge {
-    Ball givenNumber;     // 랜덤으로 생성한 볼 넘버
+    Balls givenNumber;     // 랜덤으로 생성한 볼 넘버
 
-    public Judge(Ball givenNumber) {
+    public Judge(Balls givenNumber) {
         this.givenNumber = givenNumber;
     }
 
-    private int getDuplicateNumberCount(Ball ball) {
+    private int getDuplicateNumberCount(Balls balls) {
         int nDuplicateNumber = 0;   // 중복된 숫자 갯수
-        for (int i = 0; i < ball.size(); i++) {
-            nDuplicateNumber += calculateDuplicateNumber(ball, i);
+        for (int i = 0; i < balls.size(); i++) {
+            nDuplicateNumber += calculateDuplicateNumber(balls, i);
         }
         return nDuplicateNumber;
     }
 
-    public int getStrikeCount(Ball ball) {
+    public int getStrikeCount(Balls balls) {
         int nStrike = 0;
-        for (int i = 0; i < ball.size(); i++) {
-            nStrike += calculateStrike(ball, i);
+        for (int i = 0; i < balls.size(); i++) {
+            nStrike += calculateStrike(balls, i);
         }
         return nStrike;
     }
 
-    public int getBallCount(Ball ball) {
-        return getDuplicateNumberCount(ball) - getStrikeCount(ball);
+    public int getBallCount(Balls balls) {
+        return getDuplicateNumberCount(balls) - getStrikeCount(balls);
     }
 
-    private int calculateStrike(Ball ball, int index) {
-        if (isStrike(ball, index)) return 1;
+    private int calculateStrike(Balls balls, int index) {
+        if (isStrike(balls, index)) return 1;
         return 0;
     }
 
-    private int calculateDuplicateNumber(Ball ball, int index) {
-        if (isDuplicateNumber(ball, index)) return 1;
+    private int calculateDuplicateNumber(Balls balls, int index) {
+        if (isDuplicateNumber(balls, index)) return 1;
         return 0;
     }
 
-    private boolean isStrike(Ball ball, int index) {
-        return givenNumber.get(index).equals(ball.get(index));
+    private boolean isStrike(Balls balls, int index) {
+        return givenNumber.get(index).equals(balls.get(index));
     }
 
-    private boolean isDuplicateNumber(Ball ball, int index) {
-        return givenNumber.contains(ball.get(index));
+    private boolean isDuplicateNumber(Balls balls, int index) {
+        return givenNumber.contains(balls.get(index));
     }
 }
