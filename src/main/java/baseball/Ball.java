@@ -1,62 +1,36 @@
 package baseball;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import static baseball.Constants.*;
+import java.util.Objects;
 
 public class Ball {
+    private final int position;
+    private final int ballNumber;
 
-    private final List<Integer> ballNumber;
-
-    // 중복 검사된 숫
-    public Ball(ArrayList<Integer> chanceNumber) {
-        validateSize(chanceNumber);
-        validateNumber(chanceNumber);
-//        validateDuplicate(chanceNumber);
-        this.ballNumber = chanceNumber;
+    public Ball(int position, int ballNumber) {
+        this.position = position;
+        this.ballNumber = ballNumber;
     }
 
-    public Integer get(int i) {
-        return this.ballNumber.get(i);
+    public BallStatus play(Ball ball) {
+        if (this.equals(ball)) return BallStatus.STRIKE;
+        if (matchBallNumber(ball.ballNumber)) return BallStatus.BALL;
+        return BallStatus.NOTHING;
     }
 
-    public boolean contains(int i) {
-        return this.ballNumber.contains(i);
+    private boolean matchBallNumber(int ballNumber) {
+        return this.ballNumber == ballNumber;
     }
 
-    public int size() {
-        return ballNumber.size();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ball ball = (Ball) o;
+        return position == ball.position && ballNumber == ball.ballNumber;
     }
 
-    private void validateSize(ArrayList<Integer> ballNumber) {
-        if (ballNumber.size() != BALL_SIZE) {
-            throw new IllegalArgumentException(BALL_SIZE_EXCEPTION_MESSAGE);
-        }
-    }
-
-    private void validateNumber(ArrayList<Integer> ballNumber) {
-        for (int number : ballNumber) {
-            checkNumber(number);
-        }
-    }
-
-    private void validateDuplicate(ArrayList<Integer> ballNumber) {
-        for (int number : ballNumber) {
-            checkDuplicate(number);
-        }
-    }
-
-    private void checkNumber(int number) {
-        if (number < MIN_BALL_NUMBER || number > MAX_BALL_NUMBER) {
-            throw new IllegalArgumentException(BALL_NUMBER_EXCEPTION_MESSAGE);
-        }
-    }
-
-    private void checkDuplicate(int number) {
-        if (Collections.frequency(ballNumber, number) > 1) {
-            throw new IllegalArgumentException(BALL_DUPLICATE_EXCEPTION_MESSAGE);
-        }
+    @Override
+    public int hashCode() {
+        return Objects.hash(position, ballNumber);
     }
 }
