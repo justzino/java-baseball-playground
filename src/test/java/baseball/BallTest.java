@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 public class BallTest {
     private Ball computerBall;
@@ -29,5 +30,12 @@ public class BallTest {
     void Nothing() {
         BallStatus ballStatus = computerBall.compare(new Ball(2, 5));
         assertThat(ballStatus).isEqualTo(BallStatus.NOTHING);
+    }
+
+    @Test
+    void Wrong_Input_0() {
+        assertThatIllegalArgumentException().isThrownBy(
+                () -> {computerBall.compare(new Ball(2, 0));}
+        );
     }
 }
